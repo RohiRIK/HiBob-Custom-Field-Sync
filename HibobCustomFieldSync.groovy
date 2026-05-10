@@ -20,6 +20,19 @@ pipeline {
         )
     }
 
+    triggers {
+        GenericTrigger(
+            genericVariables: [
+                [key: 'TICKET_ID', value: '$.ticket_id']
+            ],
+            causeString    : 'FreshService webhook — ticket $TICKET_ID',
+            token          : 'hibob-custom-field-sync-webhook',
+            printContributedVariables: true,
+            printPostContent         : false,
+            silentResponse           : false
+        )
+    }
+
     options {
         timeout(time: 10, unit: 'MINUTES')
         disableConcurrentBuilds()
