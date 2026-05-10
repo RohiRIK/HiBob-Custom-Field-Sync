@@ -5,7 +5,7 @@ pipeline {
         string(
             name        : 'TICKET_ID',
             defaultValue: '',
-            description : 'FreshService ticket ID containing the CSV attachment. Injected automatically by webhook; set manually for ad-hoc runs.'
+            description : 'Injected automatically by the FreshService webhook — leave empty for webhook-triggered runs. Fill in manually only for ad-hoc testing (e.g. re-run a specific ticket without waiting for a webhook).'
         )
         booleanParam(
             name        : 'DRY_RUN',
