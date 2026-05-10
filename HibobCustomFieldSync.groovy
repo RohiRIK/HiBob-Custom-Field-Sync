@@ -1,25 +1,6 @@
 pipeline {
     agent any
 
-    options {
-        timeout(time: 30, unit: 'MINUTES')
-        disableConcurrentBuilds()
-        buildDiscarder(logRotator(numToKeepStr: '30'))
-    }
-
-    triggers {
-        GenericTrigger(
-            genericVariables: [
-                [key: 'TICKET_ID', value: '$.ticket_id']
-            ],
-            causeString    : 'FreshService webhook — ticket $TICKET_ID',
-            token          : 'hibob-custom-field-sync-webhook',
-            printContributedVariables: true,
-            printPostContent         : false,
-            silentResponse           : false
-        )
-    }
-
     parameters {
         string(
             name        : 'TICKET_ID',
@@ -56,6 +37,12 @@ pipeline {
             defaultValue: '120',
             description : 'Seconds to sleep between rate-limit batches.'
         )
+    }
+
+    options {
+        timeout(time: 30, unit: 'MINUTES')
+        disableConcurrentBuilds()
+        buildDiscarder(logRotator(numToKeepStr: '30'))
     }
 
     environment {
