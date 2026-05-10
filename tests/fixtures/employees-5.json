@@ -1,0 +1,40 @@
+{
+  "employees": [
+    {
+      "id": "emp-001",
+      "email": "alice@example.com",
+      "custom": {
+        "category_placeholder": {
+          "field_placeholder": "Old Role A"
+        }
+      }
+    },
+    {
+      "id": "emp-002",
+      "email": "bob@example.com",
+      "custom": {
+        "category_placeholder": {
+          "field_placeholder": "Old Role B"
+        }
+      }
+    },
+    {
+      "id": "emp-003",
+      "email": "carol@example.com",
+      "custom": {
+        "category_placeholder": {
+          "field_placeholder": "Unchanged Role"
+        }
+      }
+    },
+    {
+      "id": "emp-004",
+      "email": "dave@example.com",
+      "custom": {
+        "category_placeholder": {
+          "field_placeholder": "Some Role"
+        }
+      }
+    }
+  ]
+}

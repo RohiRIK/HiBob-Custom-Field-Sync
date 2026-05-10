@@ -1,0 +1,25 @@
+{
+  "ticket": {
+    "id": 99001,
+    "subject": "Monthly HiBob job role sync — May 2026",
+    "status": 2,
+    "attachments": [
+      {
+        "id": 12345,
+        "name": "job-roles.csv",
+        "content_type": "text/csv",
+        "size": 51374,
+        "created_at": "2026-05-01T09:00:00Z",
+        "updated_at": "2026-05-01T09:00:00Z"
+      },
+      {
+        "id": 12346,
+        "name": "notes.txt",
+        "content_type": "text/plain",
+        "size": 1024,
+        "created_at": "2026-05-01T09:01:00Z",
+        "updated_at": "2026-05-01T09:01:00Z"
+      }
+    ]
+  }
+}

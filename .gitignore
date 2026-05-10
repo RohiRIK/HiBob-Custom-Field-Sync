@@ -1,0 +1,18 @@
+# Internal planning docs — never ship
+specs/
+plans/
+
+# CSV data — never commit HR data
+*.csv
+
+# macOS
+.DS_Store
+
+# PowerShell test artifacts
+TestResults*.xml
+
+# Editor
+.vscode/
+.idea/
+
+one-time-script-exmple.ps1
