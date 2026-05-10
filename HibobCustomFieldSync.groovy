@@ -82,7 +82,6 @@ pipeline {
 
     post {
         always {
-            sh 'rm -f "$CSV_PATH"'
             echo "Smoke test complete: ${currentBuild.result ?: 'SUCCESS'}"
         }
         success {
