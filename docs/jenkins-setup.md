@@ -60,23 +60,54 @@ https://<jenkins-host>/generic-webhook-trigger/invoke?token=hibob-custom-field-s
 
 The token `hibob-custom-field-sync-webhook` is hardcoded in `HibobCustomFieldSync.groovy`. Keep it consistent.
 
-### FreshService Workflow Automator setup
+### Option A — FreshService Workflow Automator
 
-1. In FreshService: **Admin → Workflow Automator → New Workflow**
-2. Trigger: **Ticket created** (or whichever event generates the CSV ticket)
-3. Action: **Trigger Webhook**
-4. Method: `POST`
-5. URL: *(Jenkins webhook URL above)*
-6. Content type: `application/json`
-7. Body:
-   ```json
-   {"ticket_id": "{{ticket.id}}"}
-   ```
-8. Save and activate the workflow
+Configure in **Admin → Workflow Automator → New Workflow**:
+
+| Field | Value |
+|-------|-------|
+| **Trigger** | Ticket Created *(or whichever event attaches the CSV)* |
+| **Condition** | *(optional)* e.g. Subject contains "job role sync" |
+| **Action** | Trigger Webhook |
+| **Request Type** | POST |
+| **URL** | `https://<jenkins-host>/generic-webhook-trigger/invoke?token=hibob-custom-field-sync-webhook` |
+| **Encoding** | UTF-8 |
+| **Content** | JSON |
+| **Content** (body) | `{"ticket_id": "{{ticket.id}}"}` |
+| **Requires Authentication** | No *(the token in the URL is sufficient)* |
+
+Save and set the workflow to **Active**.
+
+> **Placeholder syntax:** FreshService uses `{{ticket.id}}` — double curly braces. Do not use `{ticket.id}` (single braces) — it won't be substituted.
+
+---
+
+### Option B — Harmony (Freshworks Workflow Automation)
+
+Harmony is Freshworks' newer automation layer. Use this if your account has it enabled instead of (or alongside) Workflow Automator.
+
+Configure in **Admin → Harmony → Create Automation**:
+
+| Field | Value |
+|-------|-------|
+| **Trigger** | Ticket → Created |
+| **Condition** | *(optional)* e.g. attachment exists / subject contains keyword |
+| **Action** | Send Webhook |
+| **HTTP Method** | POST |
+| **Webhook URL** | `https://<jenkins-host>/generic-webhook-trigger/invoke?token=hibob-custom-field-sync-webhook` |
+| **Headers** | `Content-Type: application/json` |
+| **Request Body** | `{"ticket_id": "{{ticket.id}}"}` |
+| **Authentication** | None |
+
+Save and **Enable** the automation.
+
+> **Note:** Both Workflow Automator and Harmony produce the same webhook payload — the pipeline handles both identically. You only need one of them active.
+
+---
 
 ### How it works
 
-FreshService POSTs `{"ticket_id": "12345"}` to Jenkins. The Generic Webhook Trigger plugin extracts `$.ticket_id` and injects it as the `TICKET_ID` build parameter. The pipeline then downloads the CSV attachment from that ticket.
+Whichever trigger you use, it POSTs `{"ticket_id": "12345"}` to Jenkins. The Generic Webhook Trigger plugin extracts `$.ticket_id` and injects it as the `TICKET_ID` build parameter. The pipeline then downloads the CSV attachment from that ticket.
 
 ---
 

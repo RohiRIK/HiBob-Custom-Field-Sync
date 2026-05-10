@@ -47,6 +47,36 @@ Create these three **Secret text** credentials:
 
 ---
 
+## Step 3b — Wire up the webhook trigger
+
+Configure whichever platform your organisation uses to send the webhook to Jenkins when a ticket with a CSV is created.
+
+**Option A — FreshService Workflow Automator**
+
+| Field | Value |
+|-------|-------|
+| Trigger | Ticket Created |
+| Action | Trigger Webhook |
+| Request Type | POST |
+| URL | `https://<jenkins>/generic-webhook-trigger/invoke?token=hibob-custom-field-sync-webhook` |
+| Content | JSON |
+| Body | `{"ticket_id": "{{ticket.id}}"}` |
+
+**Option B — Harmony (Freshworks Workflow Automation)**
+
+| Field | Value |
+|-------|-------|
+| Trigger | Ticket → Created |
+| Action | Send Webhook |
+| HTTP Method | POST |
+| Webhook URL | `https://<jenkins>/generic-webhook-trigger/invoke?token=hibob-custom-field-sync-webhook` |
+| Headers | `Content-Type: application/json` |
+| Request Body | `{"ticket_id": "{{ticket.id}}"}` |
+
+> Both options produce the same payload — you only need one active. Full field-by-field detail: [Jenkins Setup → Webhook](jenkins-setup.md#generic-webhook-trigger).
+
+---
+
 ## Step 4 — Run a dry-run test
 
 1. Open the job → **Build with Parameters**
