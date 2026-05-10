@@ -2,6 +2,16 @@
 
 Automated Jenkins pipeline that syncs a HiBob custom field from a CSV attached to a FreshService ticket.
 
+## Documentation
+
+| Guide | Description |
+|-------|-------------|
+| [Quick Start](docs/quick-start.md) | Get running in under 10 minutes |
+| [Jenkins Setup](docs/jenkins-setup.md) | Credentials, job config, webhook wiring |
+| [Troubleshooting](docs/troubleshooting.md) | Common errors and fixes |
+
+---
+
 ## Flow
 
 ```
